@@ -30,7 +30,7 @@ module.exports = {
     es2021: true,
   },
   extends: [
-    "plugin:react/recommended", // Config ESLint pour React
+    "plugin:react/recommended", // Config eSLint pour React
     "plugin:@typescript-eslint/recommended", // Config pour TypeScript
     "plugin:prettier/recommended", // Préintègre Prettier pour gérer les conflits
   ],
