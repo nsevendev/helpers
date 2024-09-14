@@ -18,10 +18,10 @@
 
 - copier les dossiers et fichier suivant dans un dossier vide:
 
-  - fichier `docker-compose.init-project.yml`
-  - fichier `Dockerfile.init-project`
-  - dossier `script`
-  - fichier `run.sh`
+  - fichier `create-project/docker-compose.init-project.yml`
+  - fichier `create-project/Dockerfile.init-project`
+  - dossier `create-project/script`
+  - fichier `create-project/run.sh`
 
 - copier le fichier `.env.dev.public` et creer un fichier `.env.dev.local`
 - renseigner les variables d'environnement dans le fichier `.env.dev.local`
