@@ -6,32 +6,40 @@ if [ ! -f .env.dev.local ]; then
     echo "File .env.dev.local not found..."
     echo "Please create file .env.dev.local with variable environment..."
     echo "Exit process... KO"
+    
     exit 1
 else
     echo "set GROUP_ID and USER_ID"
     export USER_ID=$(id -u)
     export GROUP_ID=$(id -g) 
+    echo "set GROUP_ID and USER_ID... OK"
+
+    echo ""
+
     echo "Load variable environment..."
     source .env.dev.local
-    echo "Load variable... OK"
+    echo "Load variable environment... OK"
+
+    echo ""
+    
     echo "Execute docker with .env.dev.local..."
     docker compose --env-file .env.dev.local -f docker-compose.init-project.yml up
-    echo ""
-    echo "Execute Docker... OK"
+    echo "Execute docker with .env.dev.local... OK"
+    
     echo ""
 
     echo "Clean up docker container image for init project..."
     docker compose --env-file .env.dev.local -f docker-compose.init-project.yml down --rmi all
-    echo "Clean docker... OK"
+    echo "Clean up docker container image for init project... OK"
 
     echo ""
+    
     echo "Clean up file docker init project..."
-    echo ""
     rm -f docker-compose.init-project.yml
     rm -f Dockerfile.init-project
-    echo "Clean file... OK"
-    echo ""
+    echo "Clean up file docker init project... OK"
 
+    echo ""
 
     if [ -z "$REPOSITORY_PROJECT_GITHUB" ]; then
         echo "REPOSITORY_PROJECT_GITHUB is not set or is empty. Skipping GitHub linking..."
@@ -49,15 +57,20 @@ else
     fi
 
     echo "Finish process for create project rust for web api rest... OK"
+    
     echo ""
+    
     echo "Execute task:"
+    
     echo ""
+    
     echo "- delete file run.sh..."
     echo "- add content .*local in file .gitignore..."
     echo "- change branch master on main => git branch -m master main"
     echo "- add files => git add ."
     echo "- commit => git commit -m 'Initial commit'"
     echo "- push project => git push --force origin main"
+    
     echo ""
     echo ""
 
