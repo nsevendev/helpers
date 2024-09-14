@@ -1,12 +1,21 @@
-ARG RUST_VERSION
-ARG PORT_DOCKER_INIT_PROJECT
-
 FROM rust:${RUST_VERSION}
 
+ARG RUST_VERSION
+ARG PORT_DOCKER_INIT_PROJECT
+ARG USER_ID
+ARG GROUP_ID
+
+RUN if [ -z "${USER_ID}" ] || [ -z "${GROUP_ID}" ]; then exit 1; fi && \
+    groupadd -g ${GROUP_ID} localgroup && \
+    useradd -u ${USER_ID} -g ${GROUP_ID} -ms /bin/bash localuser
+
 WORKDIR /app
+RUN chown -R localuser:localgroup /app
 
 COPY ./script/init-project.sh /usr/local/bin/init-project.sh
 RUN chmod +x /usr/local/bin/init-project.sh
+
+USER localuser
 
 EXPOSE ${PORT_DOCKER_INIT_PROJECT}
 

@@ -6,9 +6,14 @@ services:
       args:
         - RUST_VERSION=${RUST_VERSION}
         - PORT_DOCKER_INIT_PROJECT=${PORT_DOCKER_INIT_PROJECT}
+        - USER_ID=${USER_ID}
+        - GROUP_ID=${GROUP_ID}
     container_name: rust-init-project
     volumes:
       - .:/app
     ports:
       - "${PORT_DOCKER_INIT_PROJECT}:${PORT_DOCKER_INIT_PROJECT}"
     tty: true
+    environment:
+      - USER_ID=${USER_ID}
+      - GROUP_ID=${GROUP_ID}

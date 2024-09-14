@@ -13,7 +13,7 @@ else
     echo "Load variable... OK"
 
     echo "Execute docker with .env.dev.local..."
-    docker compose --env-file .env.dev.local -f docker-compose.init-project.yml up
+    USER_ID=$(id -u) GROUP_ID=$(id -g) docker compose --env-file .env.dev.local -f docker-compose.init-project.yml up
     echo ""
     echo "Execute Docker... OK"
     echo ""
