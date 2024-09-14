@@ -1,0 +1,14 @@
+services:
+  rust-init-project:
+    build:
+      context: .
+      dockerfile: Dockerfile.init-project
+      args:
+        - RUST_VERSION=${RUST_VERSION}
+        - PORT_DOCKER_INIT_PROJECT=${PORT_DOCKER_INIT_PROJECT}
+    container_name: rust-init-project
+    volumes:
+      - .:/app
+    ports:
+      - "${PORT_DOCKER_INIT_PROJECT}:${PORT_DOCKER_INIT_PROJECT}"
+    tty: true

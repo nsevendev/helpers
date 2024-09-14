@@ -1,0 +1,14 @@
+ARG RUST_VERSION
+ARG PORT_DOCKER_INIT_PROJECT
+
+FROM rust:${RUST_VERSION}
+
+WORKDIR /app
+
+COPY ./script/init-project.sh /usr/local/bin/init-project.sh
+RUN chmod +x /usr/local/bin/init-project.sh
+
+EXPOSE ${PORT_DOCKER_INIT_PROJECT}
+
+ENTRYPOINT ["/usr/local/bin/init-project.sh"]
+CMD ["tail", "-f", "/dev/null"]
