@@ -8,12 +8,14 @@ if [ ! -f .env.dev.local ]; then
     echo "Exit process... KO"
     exit 1
 else
+    echo "set GROUP_ID and USER_ID"
+    export USER_ID=$(id -u)
+    export GROUP_ID=$(id -g) 
     echo "Load variable environment..."
     source .env.dev.local
     echo "Load variable... OK"
-
     echo "Execute docker with .env.dev.local..."
-    USER_ID=$(id -u) GROUP_ID=$(id -g) docker compose --env-file .env.dev.local -f docker-compose.init-project.yml up
+    docker compose --env-file .env.dev.local -f docker-compose.init-project.yml up
     echo ""
     echo "Execute Docker... OK"
     echo ""
