@@ -1,6 +1,8 @@
 # Creation projet rust-docker
 
-> Ce dossier contient deux execution de docker pour deux objectif différent.
+> Ce dossier contient deux execution de docker pour deux objectif différent.  
+> Ces docker sont axé pour une creation et un developpement de projet rust, mais  
+> seulement pour une api web rest full
 
 # Object 1 creer un container docker qui va creer un projet rust en local
 
@@ -25,6 +27,14 @@
 
 - copier le fichier `.env.dev.public` et creer un fichier `.env.dev.local`
 - renseigner les variables d'environnement dans le fichier `.env.dev.local`
+- variable d'environment suivante sont obligatoire pour la creation du projet rust:
+
+  - `RUST_VERSION`
+  - `NAME_FILE_ENTRYPOINT`
+  - `PORT_DOCKER_INIT_PROJECT`
+  - `REPOSITORY_PROJECT_GITHUB`
+  - `DEPENDENCIES`
+
 - executer la commande suivante:
 
 ```bash
@@ -40,4 +50,39 @@ vous devriez avoir `-rwxr-xr-x`**
 
 # Execution Objectif 2
 
-- en cours de construction
+- copier les dossiers et fichier suivant dans le dossier de votre projet rust:
+
+  - fichier `container-project/docker-compose.yml`
+  - fichier `container-project/Dockerfile`
+
+- renseigner les variables d'environnement dans le fichier `.env.dev.local` (celle qui sont vide)
+
+- lancer le container de dev:
+
+```bash
+docker compose --env-file .env.dev.local up rust-dev
+```
+
+- arreter/supprimer le container de dev:
+
+```bash
+docker compose --env-file .env.dev.local down rust-dev
+
+# supprimer l'image en meme temps
+docker compose --env-file .env.dev.local down --rmi all rust-dev
+```
+
+- lancer le container de test:
+
+```bash
+docker compose --env-file .env.dev.local up rust-test
+```
+
+- supprimer le container de test:
+
+```bash
+docker compose --env-file .env.dev.local down rust-test
+
+# supprimer l'image en meme temps
+docker compose --env-file .env.dev.local down --rmi all rust-test
+```
