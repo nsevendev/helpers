@@ -26,6 +26,17 @@ services:
     container_name: ${NAME_CONTAINER_TEST}
     command: cargo watch -x test
 
+  rust-clippy:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        RUST_VERSION: ${RUST_VERSION}
+        PORT_DOCKER_INIT_PROJECT: ${PORT_DOCKER_INIT_PROJECT}
+      target: clippy
+    container_name: ${NAME_CONTAINER_LINT}
+    command: cargo watch -x clippy
+
   rust-prod:
     build:
       context: .

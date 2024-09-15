@@ -78,11 +78,26 @@ docker compose --env-file .env.dev.local down --rmi all rust-dev
 docker compose --env-file .env.dev.local up rust-test
 ```
 
-- supprimer le container de test:
+- arreter/supprimer le container de test:
 
 ```bash
 docker compose --env-file .env.dev.local down rust-test
 
 # supprimer l'image en meme temps
 docker compose --env-file .env.dev.local down --rmi all rust-test
+```
+
+- lancer le container de linter:
+
+```bash
+docker compose --env-file .env.dev.local up rust-test
+```
+
+- arreter/supprimer le container de linter:
+
+```bash
+docker compose --env-file .env.dev.local down rust-clippy
+
+# supprimer l'image en meme temps
+docker compose --env-file .env.dev.local down --rmi all rust-clippy
 ```
