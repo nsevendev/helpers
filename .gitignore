@@ -1,2 +1,10 @@
 .idea
 .DS_Store
+.env
+/**/.env
+/**/src
+/**/target
+/**/.gitignore
+/**/*.lock
+/**/*.toml
+/**/*.local
