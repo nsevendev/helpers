@@ -90,7 +90,7 @@ docker compose --env-file .env.dev.local down --rmi all rust-test
 - lancer le container de linter:
 
 ```bash
-docker compose --env-file .env.dev.local up rust-test
+docker compose --env-file .env.dev.local up rust-clippy
 ```
 
 - arreter/supprimer le container de linter:
