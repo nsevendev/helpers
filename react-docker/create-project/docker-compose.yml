@@ -1,0 +1,20 @@
+services:
+  react-init-project:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NODE_VERSION: ${NODE_VERSION}
+        PORT_DOCKER_INIT_PROJECT: ${PORT_DOCKER_INIT_PROJECT}
+        USER_ID: ${USER_ID}
+        GROUP_ID: ${GROUP_ID}
+    container_name: react-init-project
+    volumes:
+      - .:/app
+    ports:
+      - "${PORT_DOCKER_INIT_PROJECT}:${PORT_DOCKER_INIT_PROJECT}"
+    tty: true
+    stdin_open: true
+    environment:
+      - USER_ID=${USER_ID}
+      - GROUP_ID=${GROUP_ID}

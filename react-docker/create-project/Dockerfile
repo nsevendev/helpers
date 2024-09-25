@@ -1,0 +1,31 @@
+ARG NODE_VERSION
+FROM node:${NODE_VERSION}
+
+ARG PORT_DOCKER_INIT_PROJECT
+ARG USER_ID
+ARG GROUP_ID
+
+RUN echo "USER_ID = ${USER_ID}" && \
+    echo "GROUP_ID = ${GROUP_ID}" && \
+    echo "PORT_DOCKER_INIT_PROJECT = ${PORT_DOCKER_INIT_PROJECT}" && \
+    echo "NODE_VERSION = ${NODE_VERSION}" && sleep 2
+
+RUN if [ -z "${USER_ID}" ] || [ -z "${GROUP_ID}" ]; then exit 1; fi && \
+    (getent group ${GROUP_ID} && echo "GID ${GROUP_ID} already exists, using existing group" || groupadd -g ${GROUP_ID} localgroup) && \
+    (getent passwd ${USER_ID} && echo "UID ${USER_ID} already exists, using existing user" || useradd -u ${USER_ID} -g ${GROUP_ID} -ms /bin/bash localuser)
+
+RUN id localuser && getent group ${GROUP_ID}
+
+WORKDIR /app
+
+RUN chown -R localuser:localgroup /app || chown -R localuser:${GROUP_ID} /app
+
+COPY ./script/init-project.sh /usr/local/bin/init-project.sh
+RUN chmod +x /usr/local/bin/init-project.sh
+
+USER localuser
+
+EXPOSE ${PORT_DOCKER_INIT_PROJECT}
+
+ENTRYPOINT ["/usr/local/bin/init-project.sh"]
+CMD ["tail", "-f", "/dev/null"]
